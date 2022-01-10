@@ -28,4 +28,4 @@
 ## Лабораторная работа №3: CI/CD и деплой приложения в Heroku.
 Цель лабораторной работы №3: Знакомство с CI/CD и его реализацией на примере Travis CI и Heroku.
 
-Ссылка на приложение, развернутое на платформе Heroku: ```http://mtusisimpleapi.herokuapp.com/api/v1/status```
+Ссылка на приложение, развернутое на платформе Heroku: http://mtusisimpleapi.herokuapp.com/api/v1/status
