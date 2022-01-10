@@ -5,7 +5,7 @@
 
 ## Сборка и запуск проекта
 Для сборки и запуска проекта необходимо:
-* Клонировать репозиторий: ```git clone https://github.com/ZenovichNikita/mtusi_lab1.git```
+* Клонировать репозиторий: ```git clone https://github.com/oisab/software-tech-labs.git```
 * Открыть его в среде разработки IntelliJ IDEA Ultimate Edition
 * Запустить БД в Docker командой в терминале: ```docker run -e POSTGRES_PASSWORD=root -p 5432:5432 postgres```
 * Собрать приложение, открыв терминал в папке проекта и введя команду: ```mvn package -Dmaven.test.skip=true```
