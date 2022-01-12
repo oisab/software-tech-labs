@@ -4,3 +4,25 @@ language: java
 services:
   - postgresql
   - docker
+  env:
+    global:
+      - secure: "Oe73mYnQG3c9AJHBK0Qxx20OWjP6aoG04xcEDAbQqmjytfFDTeHcu0X32AqHeEMd2PF0ovvLH6Rtv9OKIlQC4QQgST7f/rOz5Qw9AxLQ9MexMwlongKNhf3QINmMK5p9Jyis8eiNI15Uj5hSiXXTybq6f1OuIctcBus3j7uMxBE3brebyzdD+m/IeV9gKyF3QB4wHoPQwzxsWvzxL4nyFnRJXKLGVfCyesB7/r3iY78mDPRHg7kXsG22bD9e3EGQ4cMLokaEFcgCD9KP/DkdSPxuCDWo872LbrCgUeYN9FJP/Z8tnDrBcHYqrMyCK26Qg+vWIKR7bdRkGvaURrwWQtpipNV0huv1LEpF1dvsgXq9sc2je0ACh+YiLH3cfdNW+kAyMTOdICAuwgP8OpuS9eIUc4velHryXhFs2wcyQzpuCgWsnkwlRq9hs1MPbHEMAw96Sr8xUy0GtB70erP1RZfjc6U/CaDtfvRfzEuqaTGnTA89eZ4hbBUNHNeCvFHGlw+k1qF5/KURsLGe9XW7Iyb13OqUhHdgD5szqmHwnu1TzDzwFDNigaR9oQ/GnG0qZ9UxWdMdOGH/Ed8rR6XuvArsYhjP9yIz98dBS8eVxACOiDINf/WkNnWzFt8Xxya2kYp9ZbMpVZjVLZ1R5j7OKik2954ra77OvIVyBiojTOA="
+      - secure: "pzt2QgwdNy5gT0TZm/faD3WL6Af6Y7UG0RNyWuqMLzaKYTPgp15PH9zfPt4llJZyrcwChKy7amhVwbCFwEKny+lDji7VUxv4jpQ6l7w1x8PRs6aqOXroWodUR2av7lcsQYYpqU0sbcp+c2WgZCvzfJq3yaaJUxRrZ3v+7vnYxQH4TrP0EF9Kte2Bt4j2uvIzwOs5Fus4dpFF11oDKXEhsR0z+liyy4j75OU5vlju3aK3ghW+5GhbXhE+TjvGcehvr5KuN9yFNM3cj9EooWxcTfyZxfy9wK3YutCIg4zkhDfMBEgcskgp2/ujvAvQRlCzhoZ8M39Fct5Yw5yVOCUEzRvHJJ/MHcP6747026U0EmZw9KH/pUHZeQl9mtK5eqBNsxBVCh7//7hUNLsT1yjoHOzfDcT01Kc84HG06JfgJxhzQ/g2kd7V2bUiO4CmSpcGG0RXfG5/ccdIimn6zso/kYttmW5uEyqXKPVE0jHcTs9X3iGs76dC+Kx6wHyHtC4H5IEppJcBr9/oCGn0AcNLB3/kCo/2nSN56GGmoNljzKtlBWHiV6fzXOOOd+u0PYY+jHBUKZA9RYYNvAIkkzaRF5Bu8IyIUQhs42a3VHNJf2SZflbG25RiITrCjlmEm6kJ0yA1GhGgva/GoOvaafjdfs/UhjRq+Qqghderuyhv5DY="
+      - secure: "DCjsfaYskCf3XeQwyGJzCMEOkSIwlhnjiCPmeESrzFUsq9fPhBxQGz6m/KQzwKmMOtD34dJFpPRv7WoKJTtDusCPfs0D8haNVrtofg8LXB5jvqf7EjdRUM6TCvKiI9YF+KVRoTJ9CZMZCqkIsEBuzHNcDrtI5dHG6WWChMnyNaigeHYfF0Anyfo+0KF++WVIQPd1QcpTKN+TvmUKj+IvW/LfALYJ7OywhtXMjVNobMNzKLTgkO5Tx8JOdV8rU4rxqxizYymzwZs5fwYf9cD0t3I/E168mEpqnhAv6FxaHMClfrFDrS6JVt4MiOCaYwYY1ebgCGlJ6i1MRaQfKDWs6fADcKBGoWz3fKeYwpHkBNaF+gbyrl81SCIroyLqzlM1o7Nc/5hUlgB2btWK8x+/IxbU6rOknNgYEm3bOzpF5yd7vLpEPHij9ELAeB/TRgafJabTs8TXV/LtyzJu7ujkL3HrsStKd8KIn92N4nIfxIPYmDR0M4rsLeTCKzc7R70Chb1juAsiaS3mSO1qgm2UmUayX/x7OAGYWXm4jaO0DJGyjZEOdTzMlG8eBXuuVWyGZexkbhQnvMJu6NTc4DqvHB2ut6K8+7q1cLdWQlHXep1Kt8SZq/DqrDoFptnqlgkja0GtEVuPPZi52Yct2eNTINfLGdwzzME9Y0MktIfQM7c="
+      - COMMIT=${TRAVIS_COMMIT::7}
+
+    script:
+      - ./mvnw clean install -B
+
+    after_success:
+      - docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo "$TRAVIS_BRANCH"; fi`
+      - export IMAGE_NAME=myapi/dev-tech-lab # docker hub app name
+      - docker build -t $IMAGE_NAME:latest .
+      - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
+      - docker push $IMAGE_NAME:$TAG
+
+    deploy:
+      provider: heroku
+      api_key: $HEROKU_API_KEY
+      app: dev-tech-lab # heroku app name
