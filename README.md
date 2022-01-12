@@ -12,20 +12,20 @@
 * Запустить программу в Docker-контейнере командой в терминале: ```docker build . -t simpleapi:latest```
 
 ## Ендпоинты
-* GET (GET) ```http://localhost:8080/api/v1/products/{id}```
-* GET ALL (GET) ```http://localhost:8080/api/v1/products```
-* SAVE (POST) ```http://localhost:8080/api/v1/products {"name": "имя","brand": "бренд","price": 1500,"quantity": 3}```
-* DELETE (DELETE) ```http://localhost:8080//api/v1/products/{id}```
+* GET (GET) ```http://localhost:8080/api/v1/delivery/{id}```
+* GET ALL (GET) ```http://localhost:8080/api/v1/delivery```
+* SAVE (POST) ```http://localhost:8080/api/v1/delivery {"purchase_code": "3gv3253y", "last_name": "Avetov", "first_name": "Vitaliy","patronymic": "Sergeevich", "phone_number": "+7-999-843-34-53", "postal_code": "121345", "country": "Russia", "city": "Tomsk", "area": "Leninskiy", "address": "Kutuzova 8", "credit": false}```
+* DELETE (DELETE) ```http://localhost:8080//api/v1/delivery/{id}```
 * GET HOSTNAME (GET) ```http://localhost:8080/api/v1/status```
 
 ## CURL-запросы
-* Получить конкретный экземпляр таблицы products по id : ```curl GET {adress}/api/v1/products/{id}```
-* Получить содержимое таблицы products: ```curl GET {adress}/api/v1/products```
-* Добавить элемент в таблицу products: ```curl POST {adress}/api/v1/products -d '{"name": "{имя}","brand": "{брэнд}","price": {цена},"quantity": {количество}}' -H "Content-Type: application/json"```
-* Удалить элемент из таблицы products: ```curl DELETE {adress}/api/v1/products/{id}```
+* Получить конкретный экземпляр таблицы delivery по id : ```curl GET {adress}/api/v1/delivery/{id}```
+* Получить содержимое таблицы delivery: ```curl GET {adress}/api/v1/delivery```
+* Добавить элемент в таблицу delivery: ```curl POST {adress}/api/v1/delivery -d '{"purchase_code": "{код товара}", "last_name": "{фамилия}", "first_name": "{имя}","patronymic": "{отчество}", "phone_number": "{номер телефона}", "postal_code": "{почтовый индекс}", "country": "{страна}", "city": "{город}", "area": "{район}", "address": "{адрес}", "credit": {кредит}}' -H "Content-Type: application/json"```
+* Удалить элемент из таблицы delivery: ```curl DELETE {adress}/api/v1/delivery/{id}```
 * Получить hostname: ```curl -X GET http://localhost:8080/api/v1/status```
 
 ## Лабораторная работа №3: CI/CD и деплой приложения в Heroku.
 Цель лабораторной работы №3: Знакомство с CI/CD и его реализацией на примере Travis CI и Heroku.
 
-Ссылка на приложение, развернутое на платформе Heroku: https://oisab-simpleapi.herokuapp.com/
+Ссылка на приложение, развернутое на платформе Heroku: https://oisabsimpleapi.herokuapp.com/api/v1/delivery
