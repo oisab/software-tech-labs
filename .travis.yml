@@ -17,7 +17,7 @@ services:
     after_success:
       - docker login -u $DOCKER_USER -p $DOCKER_PASS
       - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo "$TRAVIS_BRANCH"; fi`
-      - export IMAGE_NAME=myapi/dev-tech-lab # docker hub app name
+      - export IMAGE_NAME=oisab/dev-tech-lab
       - docker build -t $IMAGE_NAME:latest .
       - docker tag $IMAGE_NAME:latest $IMAGE_NAME:$TAG
       - docker push $IMAGE_NAME:$TAG
@@ -25,4 +25,4 @@ services:
     deploy:
       provider: heroku
       api_key: $HEROKU_API_KEY
-      app: dev-tech-lab # heroku app name
+      app: oisab-simpleapi
