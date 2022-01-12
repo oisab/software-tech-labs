@@ -15,14 +15,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Product extends AbstractBaseEntity {
-//    @NotBlank
-//    private String name;
-//    @NotBlank
-//    private String brand;
-//    @NotNull
-//    private Integer price;
-//    @NotNull
-//    private Integer quantity;
     @NotBlank
     private String purchase_code;
     @NotBlank

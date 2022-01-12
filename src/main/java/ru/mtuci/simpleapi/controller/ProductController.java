@@ -13,8 +13,9 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = ProductController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "*")
 public class ProductController {
-    public static final String REST_URL = "/api/v1/product";
+    public static final String REST_URL = "/api/v1/delivery";
 
     private final ProductService productService;
 
